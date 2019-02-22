@@ -5,3 +5,14 @@
  */
 
 // You can delete this file if you're not using it
+
+import React from "react"
+import { SessionProvider } from "./src/state/Session"
+
+export const wrapRootElement = ({ element }) => {
+  return (
+    <SessionProvider>
+      {element}
+    </SessionProvider>
+  )
+}
