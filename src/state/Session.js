@@ -13,15 +13,18 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
-    produce(state, draft => {
+    console.log({action});
+    const newState = produce(state, draft => {
         switch (action.type) {
             case 'SELECT_PLAN':
                 draft.selected_plan = action.plan;
-                return;
+                return draft;
             default:
-                return;
+                return draft;
         }
     });
+    console.log({newState})
+    return newState
 };
 
 function SessionProvider(props) {

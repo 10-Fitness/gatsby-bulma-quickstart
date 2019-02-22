@@ -6,7 +6,7 @@ import Panel from '../components/panel';
 import HeaderButton from '../components/header_button';
 import BuyProgressBar from '../components/buy/buy_progress_bar';
 import BuyHeader from '../components/buy/buy_header';
-import { SessionConsumer } from '../state/Session';
+import { SessionContext } from '../state/Session';
 import BasicImage from '../images/Downtown-Basic_l.png';
 import PremiumImage from '../images/Downtown-Premium_l.png';
 import Level10Image from '../images/Downtown-Level-10_l.png';
@@ -23,7 +23,7 @@ const Menu = styled(Link)`
 
 function IndexPage() {
 
-    const { session, dispatch } = useContext(SessionConsumer);
+    const { session, dispatch } = useContext(SessionContext);
 
     return <div>
         <Helmet />
@@ -39,13 +39,22 @@ function IndexPage() {
         <Panel>
             <div className="columns is-multiline">
                 <div className="column is-one-third">
-                    <Menu to="/buy_2?plan=basic"><img src={BasicImage} /></Menu>
+                    <Menu to="/buy_2?plan=basic" 
+                        onClick={()=>dispatch({type: 'SELECT_PLAN', plan: 'basic'})}>
+                        <img src={BasicImage} />
+                    </Menu>
                 </div>
                 <div className="column is-one-third">
-                    <Menu to="/buy_2?plan=premium"><img src={PremiumImage} /></Menu>
+                    <Menu to="/buy_2?plan=premium"
+                        onClick={()=>dispatch({type: 'SELECT_PLAN', plan: 'premium'})}>
+                        <img src={PremiumImage} />
+                    </Menu>
                 </div>
                 <div className="column is-one-third">
-                    <Menu to="/buy_2?plan=Level%2010"><img src={Level10Image} /></Menu>
+                    <Menu to="/buy_2?plan=Level%2010"
+                        onClick={()=>dispatch({type: 'SELECT_PLAN', plan: 'level 10'})}>
+                        <img src={Level10Image} />
+                    </Menu>
                 </div>
             </div>              
         </Panel>
