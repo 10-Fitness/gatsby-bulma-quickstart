@@ -15,12 +15,12 @@ import '../components/style.scss';
 const Label = styled.label`
     font-family: 'Roboto',sans-serif;
     display: block;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0;
     color: #000000;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: 700;
+    font-weight: 550;
     padding-top: 5px;
     cursor: default;
 `;
@@ -37,16 +37,29 @@ const StyledField = styled(Field)`
   
 `
 
-function twoColumns(c1, c2) {
+const Row = styled.div`
+  padding-top: 0.5em;
+`
+
+const Message = styled.div`
+  font-size: 0.9em;
+`
+
+function twoColumns(c1, c2, sharedMessage) {
   return (
-    <div class="columns is-mobile">
-      <div class="column">
-          {c1}
+    <Row>
+      <div class="columns is-mobile" style={{'paddingBottom': '0px', 'marginBottom': '0px'}}>
+        <div class="column" style={{'paddingBottom': '0px', 'marginBottom': '0px'}}>
+            {c1}
+        </div>
+        <div class="column" style={{'paddingBottom': '0px', 'marginBottom': '0px'}}>
+            {c2}
+        </div>
+        
       </div>
-      <div class="column">
-          {c2}
-      </div>
-    </div>
+      <Message>{sharedMessage}</Message>
+    </Row>
+    
   )
 }
 
@@ -55,11 +68,11 @@ function fLayout(fieldName, inputField, error, comments) {
     <Label>{fieldName}</Label>
     {inputField}
     {error}
-    {comments}
+    <Message>{comments}</Message>
   </div>
 }
 
-function AboutYouFields() {
+function AboutYouFields(values, errors, status, touched, isSubmitting) {
   return <div>
       {twoColumns(
         fLayout(
@@ -76,48 +89,50 @@ function AboutYouFields() {
         fLayout(
           "Email",
           <StyledField type="text" name="email" />,
-          <ErrorMessage name="email" component="div" />,
-          "Emails are sent for account updates, membership agreements, receipts and promotional offers."),
+          <ErrorMessage name="email" component="div" />),
         fLayout(
           "Verify Email",
           <StyledField type="text" name="verifyEmail" />,
-          <ErrorMessage name="verifyEmail" component="div" />)
+          <ErrorMessage name="verifyEmail" component="div" />),
+          "Emails are sent for account updates, membership agreements, receipts and promotional offers."
       )}
 
       {twoColumns(
         fLayout(
           "Mailing Address",
           <StyledField type="text" name="mailingAddress" />,
-          <ErrorMessage name="fName" component="div" />,
+          <ErrorMessage name="mailingAddress" component="div" />,
           "(including apt or unit #)"),
         fLayout(
           "City",
           <StyledField type="text" name="city" />,
-          <ErrorMessage name="fName" component="div" />)
+          <ErrorMessage name="city" component="div" />)
       )}
 
       {twoColumns(
         fLayout(
           "Postal Code",
           <StyledField type="text" name="postalCode" />,
-          <ErrorMessage name="fName" component="div" />),
+          <ErrorMessage name="postalCode" component="div" />),
         fLayout(
           "Date of Birth",
           <StyledField type="text" name="dob" />,
-          <ErrorMessage name="fName" component="div" />,
+          <ErrorMessage name="dob" component="div" />,
           "(mm/dd/yyyy)")
       )}
 
     {twoColumns(
         fLayout(
-          "Gender",
-          <StyledField type="text" name="gender" />,
-          <ErrorMessage name="fName" component="div" />),
-        fLayout(
           "Mobile Phone",
           <StyledField type="text" name="primaryPhone" />,
-          <ErrorMessage name="fName" component="div" />,
-          "Text messages are sent for door access barcode, account updates, and offers.")
+          <ErrorMessage name="primaryPhone" component="div" />
+          ),
+        fLayout(
+          "Gender",
+          <StyledField type="text" name="gender" />,
+          <ErrorMessage name="gender" component="div" />),
+          "Your door access link will be sent via text along with updates and offers."
+  
       )}  
   </div>
 
@@ -143,7 +158,7 @@ function IndexPage() {
         <div className="columns is-multiline">
                 <div className="column is-two-third">
                   <PageTitle>
-                    Please Tell Us About Yourself
+                    Member Information
                   </PageTitle>
                   <Formik
                     initialValues={{}}
@@ -161,9 +176,9 @@ function IndexPage() {
                       //   }
                       // );
                     }}
-                    render={({ errors, status, touched, isSubmitting }) => (
+                    render={({ values, errors, status, touched, isSubmitting }) => (
                         <Form>
-                        {AboutYouFields()}
+                        {AboutYouFields(values, errors, status, touched, isSubmitting)}
                         {status && status.msg && <div>{status.msg}</div>}
                         <button type="submit" disabled={isSubmitting}>
                           Submit
