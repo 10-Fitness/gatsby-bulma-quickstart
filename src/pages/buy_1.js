@@ -3,9 +3,9 @@ import { Link } from 'gatsby';
 import styled from "styled-components"
 import Helmet from '../components/helmet';
 import Panel from '../components/panel';
-import HeaderButton from '../components/header_button';
-import BuyProgressBar from '../components/buy/buy_progress_bar';
-import BuyHeader from '../components/buy/buy_header';
+import BuyHeaderButton from '../components/buy/buyHeaderButton';
+import BuyProgressBar from '../components/buy/buyProgressBar';
+import BuyHeader from '../components/buy/buyHeader';
 import { SessionContext } from '../state/Session';
 import BasicImage from '../images/Downtown-Basic_l.png';
 import PremiumImage from '../images/Downtown-Premium_l.png';
@@ -30,7 +30,7 @@ function IndexPage() {
         <Panel >
             <BuyHeader 
                 title={`${session.location} membership`}
-                rightAction={<HeaderButton to="/">Exit</HeaderButton>} />
+                rightAction={<BuyHeaderButton to="/">Exit</BuyHeaderButton>} />
         </Panel>
         <Panel>
             <BuyProgressBar position={1} />

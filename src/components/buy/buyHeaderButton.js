@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
 import { Link } from 'gatsby';
-import './style.scss';
+import './../style.scss';
 
 
-const HeaderButton = styled(Link)`
+const BuyHeaderButton = styled(Link)`
   display: inline-block;
   border: 1px solid black;
   background-color: white;
@@ -18,4 +18,4 @@ const HeaderButton = styled(Link)`
     margin-right: -1px;
   }
 `
-export default HeaderButton;
+export default BuyHeaderButton;

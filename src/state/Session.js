@@ -10,20 +10,45 @@ const initialState = {
     location: 'downtown',
     user: null,
     selected_plan: null,
+    login: {
+        mobilePhone: null,
+        canSubmitPhone: false,
+        isSubmittingMobilePhone: false,
+    }
 }
 
 const reducer = (state, action) => {
-    console.log({action});
     const newState = produce(state, draft => {
         switch (action.type) {
             case 'SELECT_PLAN':
                 draft.selected_plan = action.plan;
                 return draft;
+            case 'CHANGE_MOBILE_PHONE':
+                draft.login.mobilePhone = action.phone;
+                if (draft.login.mobilePhone != null && draft.login.mobilePhone.length == 14) {
+                    draft.login.canSubmitPhone = true;
+                } else {
+                    draft.login.canSubmitPhone = false;
+                }
+                return draft;
+            case 'SUBMIT_MOBILE_PHONE':
+                draft.login.isSubmittingMobilePhone = true;
+                draft.login.canSubmitPhone = false;
+                setTimeout(()=>
+                {
+                    action.dispatch({type: 'HANDLE_MOBILE_PHONE_RESPONSE', result: 'success'})
+                }, 2000);
+                return draft;
+            case 'HANDLE_MOBILE_PHONE_RESPONSE':
+                if (action.result=="success") {
+                    draft.login.isSubmittingMobilePhone = false;
+                    draft.login.canSubmitPhone = true;   
+                }
+                return draft;
             default:
                 return draft;
         }
     });
-    console.log({newState})
     return newState
 };
 

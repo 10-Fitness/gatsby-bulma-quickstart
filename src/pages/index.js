@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from "styled-components"
 import Logo from '../images/10 Fitness Logo.png';
-import { Link } from "gatsby"
+import { Link } from "gatsby";
+import IndexHeaderButton from '../components/index/indexHeaderButton';
 import Helmet from '../components/helmet';
 
 import '../components/style.scss';
@@ -56,7 +57,10 @@ const HeaderSection = () =>
                 <div className="column is-one-third">
                 </div>
                 <div className="column is-one-third">
-                
+                    <IndexHeaderButton to="/login">
+                        <em>HAVE AN ACCOUNT?</em>
+                        SIGN IN
+                    </IndexHeaderButton>
                 </div>
             </div>
         </div>
@@ -86,7 +90,8 @@ const MidSection = () =>
                 </div>
                 <div className="column">
                     <BannerButton to="/">
-                        <h1>tour our gym</h1>
+                        <h1>discover</h1>
+                        <p>WHY 10 FITNESS</p>
                     </BannerButton>
                 </div>
             </div>
