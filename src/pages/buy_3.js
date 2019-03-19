@@ -9,6 +9,7 @@ import BuyHeaderButton from '../components/buy/buyHeaderButton';
 import BuyProgressBar from '../components/buy/buyProgressBar';
 import BuyHeader from '../components/buy/buyHeader';
 import { SessionContext } from '../state/Session';
+import WebCamCapture from '../components/webCamCapture';
 import '../components/style.scss';
 import Webcam from "react-webcam";
 
@@ -176,45 +177,20 @@ function IndexPage() {
         <Panel >
             <BuyHeader 
                 title={`${session.location} membership`}
-                leftAction={<BuyHeaderButton to="/buy_1">Back</BuyHeaderButton>}
+                leftAction={<BuyHeaderButton to="/buy_2">Back</BuyHeaderButton>}
                 rightAction={<BuyHeaderButton to="/">Exit</BuyHeaderButton>}
             />
         </Panel>
         <Panel>
-            <BuyProgressBar position={2} />
+            <BuyProgressBar position={3} />
         </Panel>
         <Panel>
         <div className="columns is-multiline">
                 <div className="column is-two-third">
                   <PageTitle>
-                    Member Information
+                    Profile Picture
                   </PageTitle>
-                  <Formik
-                    initialValues={{}}
-                    onSubmit={(values, actions) => {
-                      // MyImaginaryRestApiCall(user.id, values).then(
-                      //   updatedUser => {
-                      //     actions.setSubmitting(false);
-                      //     updateUser(updatedUser);
-                      //     onClose();
-                      //   },
-                      //   error => {
-                      //     actions.setSubmitting(false);
-                      //     actions.setErrors(transformMyRestApiErrorsToAnObject(error));
-                      //     actions.setStatus({ msg: 'Set some arbitrary status or data' });
-                      //   }
-                      // );
-                    }}
-                    render={({ values, errors, status, touched, isSubmitting }) => (
-                        <Form>
-                        {AboutYouFields(values, errors, status, touched, isSubmitting)}
-                        {status && status.msg && <div>{status.msg}</div>}
-                        <ContinueButton 
-                          disabled={isSubmitting}
-                          to="/buy_3">Continue</ContinueButton>
-                      </Form>
-                    )}
-                  />
+                  <WebCamCapture />
                 </div>
                 <div className="column is-one-third">
                   <YourSummary>
