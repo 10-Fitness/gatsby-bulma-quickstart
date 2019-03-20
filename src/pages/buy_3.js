@@ -9,7 +9,7 @@ import BuyHeaderButton from '../components/buy/buyHeaderButton';
 import BuyProgressBar from '../components/buy/buyProgressBar';
 import BuyHeader from '../components/buy/buyHeader';
 import { SessionContext } from '../state/Session';
-import WebCamCapture from '../components/webCamCapture';
+import { WebCamCapture, ConfirmCapture } from '../components/buy/webCamCapture';
 import '../components/style.scss';
 import Webcam from "react-webcam";
 
@@ -30,139 +30,15 @@ const ContinueButton = styled(Link)`
   }
 `
 
-const Label = styled.label`
-    font-family: 'Roboto',sans-serif;
-    display: block;
-    font-size: 14px;
-    letter-spacing: 0;
-    color: #000000;
-    max-width: 100%;
-    margin-bottom: 5px;
-    font-weight: 550;
-    padding-top: 5px;
-    cursor: default;
-`;
-
-const StyledField = styled(Field)`
-  border-radius: 0;
-  box-shadow: none;
-  width: 100%;
-  height: 34px;
-  margin: 0 0 5px 0;
-  font-size: 17px;
-  border: 1px solid #ccc;
-  padding-left: 0.5em; 
-`
 
 const YourSummary = styled.div`
   background-color: #F8F8F8;
   padding: 1em;
 `
 
-const Row = styled.div`
-  padding-top: 0.5em;
-`
-
-const Message = styled.div`
-  font-size: 0.9em;
-`
-
 const SmallPageTitle = styled(PageTitle)`
   font-size: 1.5em;
 `
-
-function twoColumns(c1, c2, sharedMessage) {
-  return (
-    <Row>
-      <div class="columns is-mobile" style={{'paddingBottom': '0px', 'marginBottom': '0px'}}>
-        <div class="column" style={{'paddingBottom': '0px', 'marginBottom': '0px'}}>
-            {c1}
-        </div>
-        <div class="column" style={{'paddingBottom': '0px', 'marginBottom': '0px'}}>
-            {c2}
-        </div>
-        
-      </div>
-      <Message>{sharedMessage}</Message>
-    </Row>
-    
-  )
-}
-
-function fLayout(fieldName, inputField, error, comments) {
-  return <div>
-    <Label>{fieldName}</Label>
-    {inputField}
-    {error}
-    <Message>{comments}</Message>
-  </div>
-}
-
-function AboutYouFields(values, errors, status, touched, isSubmitting) {
-  return <div>
-      {twoColumns(
-        fLayout(
-          "First Name",
-          <StyledField type="text" name="fName" />,
-          <ErrorMessage name="fName" component="div" />),
-        fLayout(
-          "Last Name",
-          <StyledField type="text" name="lName" />,
-          <ErrorMessage name="fName" component="div" />)
-      )}
-
-      {twoColumns(
-        fLayout(
-          "Email",
-          <StyledField type="text" name="email" />,
-          <ErrorMessage name="email" component="div" />),
-        fLayout(
-          "Verify Email",
-          <StyledField type="text" name="verifyEmail" />,
-          <ErrorMessage name="verifyEmail" component="div" />),
-          "Emails are sent for account updates, membership agreements, receipts and promotional offers."
-      )}
-
-      {twoColumns(
-        fLayout(
-          "Mailing Address",
-          <StyledField type="text" name="mailingAddress" />,
-          <ErrorMessage name="mailingAddress" component="div" />,
-          "(including apt or unit #)"),
-        fLayout(
-          "City",
-          <StyledField type="text" name="city" />,
-          <ErrorMessage name="city" component="div" />)
-      )}
-
-      {twoColumns(
-        fLayout(
-          "Postal Code",
-          <StyledField type="text" name="postalCode" />,
-          <ErrorMessage name="postalCode" component="div" />),
-        fLayout(
-          "Date of Birth",
-          <StyledField type="text" name="dob" />,
-          <ErrorMessage name="dob" component="div" />,
-          "(mm/dd/yyyy)")
-      )}
-
-    {twoColumns(
-        fLayout(
-          "Mobile Phone",
-          <StyledField type="text" name="primaryPhone" />,
-          <ErrorMessage name="primaryPhone" component="div" />
-          ),
-        fLayout(
-          "Gender",
-          <StyledField type="text" name="gender" />,
-          <ErrorMessage name="gender" component="div" />),
-          "Your door access link will be sent via text along with updates and offers."
-  
-      )}  
-  </div>
-
-}
 
 function IndexPage() {
 
@@ -190,7 +66,13 @@ function IndexPage() {
                   <PageTitle>
                     Profile Picture
                   </PageTitle>
-                  <WebCamCapture />
+                  {
+                    session.photo.mode == 'capture' ? <WebCamCapture /> : null
+                  }
+                  {
+                    session.photo.mode == 'confirm_capture' ? <ConfirmCapture /> : null
+                  }
+                  
                 </div>
                 <div className="column is-one-third">
                   <YourSummary>

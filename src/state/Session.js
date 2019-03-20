@@ -14,7 +14,14 @@ const initialState = {
         mobilePhone: null,
         canSubmitPhone: false,
         isSubmittingMobilePhone: false,
+    },
+    memberInfo: {
+
+    },
+    photo: {
+        mode: 'capture',
     }
+    
 }
 
 const reducer = (state, action) => {
@@ -45,6 +52,13 @@ const reducer = (state, action) => {
                     draft.login.canSubmitPhone = true;   
                 }
                 return draft;
+            case 'CAPTURE_PHOTO':
+                draft.photo.mode = 'confirm_capture';
+                draft.photo.imageSrc = action.imageSrc;                
+                return draft
+            case 'RETAKE':
+                draft.photo.mode = 'capture';
+                return draft
             default:
                 return draft;
         }
