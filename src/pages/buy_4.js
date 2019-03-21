@@ -53,25 +53,19 @@ function IndexPage() {
         <Panel >
             <BuyHeader 
                 title={`${session.location} membership`}
-                leftAction={<BuyHeaderButton to="/buy_2">Back</BuyHeaderButton>}
+                leftAction={<BuyHeaderButton to="/buy_3">Back</BuyHeaderButton>}
                 rightAction={<BuyHeaderButton to="/">Exit</BuyHeaderButton>}
             />
         </Panel>
         <Panel>
-            <BuyProgressBar position={3} />
+            <BuyProgressBar position={4} />
         </Panel>
         <Panel>
         <div className="columns is-multiline">
                 <div className="column is-two-third">
                   <PageTitle>
-                    Profile Picture
+                    Secure Payment
                   </PageTitle>
-                  {
-                    session.photo.mode == 'capture' ? <WebCamCapture /> : null
-                  }
-                  {
-                    session.photo.mode == 'confirm_capture' ? <ConfirmCapture /> : null
-                  }
                   
                 </div>
                 <div className="column is-one-third">

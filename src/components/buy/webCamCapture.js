@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { SessionContext } from '../../state/Session';
 import tracking from 'jstracking';
+import { navigate } from "gatsby"
+
 
 function crop(videoElement, options, face) {
   var cropWidth = options.width, cropHeight = options.height;
@@ -83,7 +85,7 @@ class WebCamCapture extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        canCapture: 5
+        canCapture: 3
       }
       this.videoMonitor = null;
       this.faceObjects = new tracking.ObjectTracker(['face']);
@@ -121,7 +123,8 @@ class WebCamCapture extends React.Component {
           dispatch({
             type: "CAPTURE_PHOTO",
             imageSrc: cropPlusExport(video, x*1.828, y*1.828, width*1.828, height*1.828)
-          })
+          });
+          setTimeout(()=>navigate("/buy_4"), 1000)
         }
       });
       tracking.track(video, this.faceObjects, {
